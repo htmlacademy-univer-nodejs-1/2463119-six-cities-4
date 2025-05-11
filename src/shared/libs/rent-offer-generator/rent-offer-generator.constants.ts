@@ -1,0 +1,27 @@
+const MIN_RATING = 1;
+const MAX_RATING = 5;
+
+const MIN_PRICE = 100;
+const MAX_PRICE = 100000;
+
+const MIN_ROOMS_COUNT = 1;
+const MAX_ROOMS_COUNT = 8;
+
+const MIN_GUEST_COUNT = 1;
+const MAX_GUEST_COUNT = 10;
+
+const FIRST_WEEK_DAY = 1;
+const LAST_WEEK_DAY = 7;
+
+export default {
+  MIN_RATING,
+  MAX_RATING,
+  MIN_PRICE,
+  MAX_PRICE,
+  MIN_ROOMS_COUNT,
+  MAX_ROOMS_COUNT,
+  MIN_GUEST_COUNT,
+  MAX_GUEST_COUNT,
+  FIRST_WEEK_DAY,
+  LAST_WEEK_DAY,
+};

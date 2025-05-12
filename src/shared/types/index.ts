@@ -1,3 +1,4 @@
+export * from './document-exists.interface.js';
 export * from './housing-conveniences.enum.js';
 export * from './mock-server-data.type.js';
 export * from './housing-type.enum.js';

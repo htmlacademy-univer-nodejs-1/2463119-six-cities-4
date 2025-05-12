@@ -44,7 +44,10 @@ export class TSVRentOfferGenerator implements RentOfferGenerator {
       Constants.MAX_PRICE
     ).toString();
     const conveniences = getRandomItems(this.mockData.conveniences).join(';');
-    const author = getRandomItem(this.mockData.authors);
+    const firstname = getRandomItem(this.mockData.firstnames);
+    const email = getRandomItem(this.mockData.emails);
+    const avatarPath = getRandomItem(this.mockData.avatarPaths);
+    const type = getRandomItem(this.mockData.types);
     const commentsCount = getRandomItem(this.mockData.commentsCount);
 
     const createdDate = dayjs()
@@ -73,7 +76,10 @@ export class TSVRentOfferGenerator implements RentOfferGenerator {
       guestCount,
       price,
       conveniences,
-      author,
+      firstname,
+      email,
+      avatarPath,
+      type,
       commentsCount,
       coordinates,
     ].join('\t');

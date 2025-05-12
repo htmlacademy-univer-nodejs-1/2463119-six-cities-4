@@ -1,30 +1,19 @@
-import 'reflect-metadata';
-import { Container } from 'inversify';
+import { createRentOfferContainer } from './shared/modules/rent-offer/rent-offer.container.js';
+import { createRestApplicationContainer } from './rest/six-cities.container.js';
+import { createUserContainer } from './shared/modules/user/index.js';
 import { SixCitiesApplication } from './rest/index.js';
-import {
-  Config,
-  SixCitiesAppConfig,
-  SixCitiesAppSchema,
-} from './shared/libs/config/index.js';
-import { Logger, PinoLogger } from './shared/libs/logger/index.js';
 import { Component } from './shared/types/index.js';
+import { Container } from 'inversify';
+import 'reflect-metadata';
 
 async function bootstrap() {
-  const container = new Container();
+  const appContainer = Container.merge(
+    createRestApplicationContainer(),
+    createUserContainer(),
+    createRentOfferContainer()
+  );
 
-  container
-    .bind<SixCitiesApplication>(Component.SixCitiesApplication)
-    .to(SixCitiesApplication)
-    .inSingletonScope();
-
-  container.bind<Logger>(Component.Logger).to(PinoLogger).inSingletonScope();
-
-  container
-    .bind<Config<SixCitiesAppSchema>>(Component.Config)
-    .to(SixCitiesAppConfig)
-    .inSingletonScope();
-
-  const app = container.get<SixCitiesApplication>(
+  const app = appContainer.get<SixCitiesApplication>(
     Component.SixCitiesApplication
   );
 

@@ -14,7 +14,7 @@ export interface RentOfferService {
   create(dto: CreateRentOfferDto): Promise<DocumentType<RentOfferEntity>>;
   delete(id: string): Promise<void>;
   deleteFavorite(rentOfferId: string, userId: string): Promise<void>;
-  find(limit: number): Promise<DocumentType<RentOfferEntity>[]>;
+  find(limit?: number): Promise<DocumentType<RentOfferEntity>[]>;
   findById(id: string): Promise<DocumentType<RentOfferEntity> | null>;
   findPremiumByCity(
     city: string

@@ -2,8 +2,9 @@ import { CreateRentOfferDto } from './dto/create-rent-offer.dto.js';
 import { PatchRentOfferDto } from './dto/patch-rent-offer.dto.js';
 import { DocumentType, types } from '@typegoose/typegoose';
 import { RentOfferEntity } from './rent-offer.entity.js';
+import { DocumentExists } from '../../types/index.js';
 
-export interface RentOfferService {
+export interface RentOfferService extends DocumentExists {
   addFavorite(rentOfferId: string, userId: string): Promise<void>;
   calculateRating(
     oldRating: number,

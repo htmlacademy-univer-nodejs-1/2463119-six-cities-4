@@ -2,7 +2,9 @@ import {
   BaseController,
   HttpError,
   HttpMethod,
+  UploadFileMiddleware,
   ValidateDtoMiddleware,
+  ValidateObjectIdMiddleware,
 } from '../../libs/rest/index.js';
 import { Config, SixCitiesAppSchema } from '../../libs/config/index.js';
 import { CreateUserRequest } from './create-user-request.js';
@@ -15,8 +17,8 @@ import { Component } from '../../types/index.js';
 import { fillDTO } from '../../helpers/index.js';
 import { StatusCodes } from 'http-status-codes';
 import { inject, injectable } from 'inversify';
+import { Request, Response } from 'express';
 import { UserRdo } from './rdo/user.rdo.js';
-import { Response } from 'express';
 
 @injectable()
 export class UserController extends BaseController {
@@ -35,21 +37,37 @@ export class UserController extends BaseController {
       handler: this.create,
       middlewares: [new ValidateDtoMiddleware(CreateUserDto)],
     });
+
     this.addRoute({
       path: '/login',
       method: HttpMethod.Post,
       handler: this.login,
       middlewares: [new ValidateDtoMiddleware(LoginUserDto)],
     });
+
     this.addRoute({
       path: '/logout',
       method: HttpMethod.Post,
       handler: this.logout,
     });
+
     this.addRoute({
       path: '/login',
       method: HttpMethod.Get,
       handler: this.getSession,
+    });
+
+    this.addRoute({
+      path: '/:userId/avatar',
+      method: HttpMethod.Post,
+      handler: this.uploadAvatar,
+      middlewares: [
+        new ValidateObjectIdMiddleware('userId'),
+        new UploadFileMiddleware(
+          this.configService.get('UPLOAD_DIRECTORY'),
+          'avatar'
+        ),
+      ],
     });
   }
 
@@ -109,5 +127,11 @@ export class UserController extends BaseController {
       'Not implemented',
       'UserController'
     );
+  }
+
+  public async uploadAvatar(req: Request, res: Response) {
+    this.created(res, {
+      filepath: req.file?.path,
+    });
   }
 }

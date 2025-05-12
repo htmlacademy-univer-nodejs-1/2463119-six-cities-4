@@ -2,11 +2,14 @@ import {
   BaseController,
   HttpError,
   HttpMethod,
+  ValidateDtoMiddleware,
 } from '../../libs/rest/index.js';
 import { Config, SixCitiesAppSchema } from '../../libs/config/index.js';
 import { CreateUserRequest } from './create-user-request.js';
 import { LoginUserRequest } from './login-user-request.js';
 import { UserService } from './user-service.interface.js';
+import { CreateUserDto } from './dto/create-user.dto.js';
+import { LoginUserDto } from './dto/login-user.dto.js';
 import { Logger } from '../../libs/logger/index.js';
 import { Component } from '../../types/index.js';
 import { fillDTO } from '../../helpers/index.js';
@@ -30,11 +33,13 @@ export class UserController extends BaseController {
       path: '/register',
       method: HttpMethod.Post,
       handler: this.create,
+      middlewares: [new ValidateDtoMiddleware(CreateUserDto)],
     });
     this.addRoute({
       path: '/login',
       method: HttpMethod.Post,
       handler: this.login,
+      middlewares: [new ValidateDtoMiddleware(LoginUserDto)],
     });
     this.addRoute({
       path: '/logout',
@@ -90,7 +95,7 @@ export class UserController extends BaseController {
     );
   }
 
-  public async logout(_res: Response): Promise<void> {
+  public async logout(_: unknown, _res: Response): Promise<void> {
     throw new HttpError(
       StatusCodes.NOT_IMPLEMENTED,
       'Not implemented',
@@ -98,7 +103,7 @@ export class UserController extends BaseController {
     );
   }
 
-  public async getSession(_res: Response): Promise<void> {
+  public async getSession(_: unknown, _res: Response): Promise<void> {
     throw new HttpError(
       StatusCodes.NOT_IMPLEMENTED,
       'Not implemented',

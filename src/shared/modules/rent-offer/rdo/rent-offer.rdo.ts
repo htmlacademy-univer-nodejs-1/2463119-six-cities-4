@@ -1,8 +1,10 @@
 import { HousingConveniences, HousingType } from '../../../types/index.js';
-import { Expose } from 'class-transformer';
+import { UserRdo } from '../../user/rdo/user.rdo.js';
+import { Expose, Type } from 'class-transformer';
 
 export class RentOfferRdo {
-  @Expose()
+  @Expose({ name: 'userId' })
+  @Type(() => UserRdo)
   public authorId: string;
 
   @Expose()

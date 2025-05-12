@@ -12,8 +12,9 @@ export interface RentOfferService {
     offerId: string
   ): Promise<void>;
   create(dto: CreateRentOfferDto): Promise<DocumentType<RentOfferEntity>>;
-  delete(id: string): Promise<void>;
+  delete(id: string): Promise<types.DocumentType<RentOfferEntity> | null>;
   deleteFavorite(rentOfferId: string, userId: string): Promise<void>;
+  exists(documentId: string): Promise<boolean>;
   find(limit?: number): Promise<DocumentType<RentOfferEntity>[]>;
   findById(id: string): Promise<DocumentType<RentOfferEntity> | null>;
   findPremiumByCity(
@@ -23,4 +24,7 @@ export interface RentOfferService {
     rentOfferId: string,
     dto: PatchRentOfferDto
   ): Promise<types.DocumentType<RentOfferEntity> | null>;
+  incCommentCount(
+    offerId: string
+  ): Promise<DocumentType<RentOfferEntity> | null>;
 }

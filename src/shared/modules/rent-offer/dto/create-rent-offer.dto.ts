@@ -10,16 +10,14 @@ export class CreateRentOfferDto {
   createdDate: Date;
   city: string;
   previewImage: string;
-  housingPhoto: string;
+  housingPhoto: string[];
   isPremium: boolean;
   isFavorite: boolean;
-  rating: number;
   housingType: HousingType;
   roomsCount: number;
   guestsCount: number;
   price: number;
   conveniences: HousingConveniences[];
   authorId: string;
-  commentsCount: number;
   coordinates: Coordinates;
 }

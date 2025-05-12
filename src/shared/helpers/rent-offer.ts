@@ -3,7 +3,9 @@ import {
   HousingType,
   RentOffer,
   UserType,
+  User,
 } from '../types/index.js';
+import { generateRandomValue } from './common.js';
 
 export function createRentOffer(offerData: string): RentOffer {
   const [
@@ -22,14 +24,15 @@ export function createRentOffer(offerData: string): RentOffer {
     price,
     conveniences,
     firstname,
-    email,
     avatarPath,
     type,
     commentsCount,
     coordinates,
   ] = offerData.replace('\n', '').split('\t');
 
-  const author = {
+  const email = `email${generateRandomValue(1, 100)}@example.com`;
+
+  const author: User = {
     firstname,
     email,
     avatarPath,
@@ -42,7 +45,7 @@ export function createRentOffer(offerData: string): RentOffer {
     createdDate: new Date(createdDate),
     city,
     previewImage,
-    housingPhoto,
+    housingPhoto: [housingPhoto],
     isPremium: isPremium.toLowerCase() === 'true',
     isFavorite: isFavorite.toLowerCase() === 'true',
     rating: Number.parseInt(rating, 10),

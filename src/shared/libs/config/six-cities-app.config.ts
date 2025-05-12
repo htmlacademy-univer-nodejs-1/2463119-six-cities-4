@@ -1,12 +1,12 @@
-import { config } from 'dotenv';
-import { inject, injectable } from 'inversify';
-import { Component } from '../../types/index.js';
-import { Logger } from '../logger/index.js';
-import { Config } from './config.interface.js';
 import {
   configSixCitiesAppSchema,
   SixCitiesAppSchema,
 } from './six-cities-app.schema.js';
+import { Component } from '../../types/index.js';
+import { Config } from './config.interface.js';
+import { inject, injectable } from 'inversify';
+import { Logger } from '../logger/index.js';
+import { config } from 'dotenv';
 
 @injectable()
 export class SixCitiesAppConfig implements Config<SixCitiesAppSchema> {

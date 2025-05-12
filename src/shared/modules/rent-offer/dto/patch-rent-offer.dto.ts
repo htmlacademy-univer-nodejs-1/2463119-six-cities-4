@@ -1,9 +1,10 @@
-import { HousingConveniences } from './housing-conveniences.enum.js';
-import { HousingType } from './housing-type.enum.js';
-import { Coordinates } from './coordinates.type.js';
-import { User } from './user.type.js';
+import {
+  Coordinates,
+  HousingConveniences,
+  HousingType,
+} from '../../../types/index.js';
 
-export type RentOffer = {
+export class PatchRentOfferDto {
   title: string;
   description: string;
   createdDate: Date;
@@ -18,7 +19,7 @@ export type RentOffer = {
   guestsCount: number;
   price: number;
   conveniences: HousingConveniences[];
-  author: User;
+  authorId: string;
   commentsCount: number;
   coordinates: Coordinates;
-};
+}

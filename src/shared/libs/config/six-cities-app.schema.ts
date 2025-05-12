@@ -1,5 +1,5 @@
-import convict from 'convict';
 import validator from 'convict-format-with-validator';
+import convict from 'convict';
 
 convict.addFormats(validator);
 

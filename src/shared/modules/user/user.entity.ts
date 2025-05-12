@@ -3,9 +3,11 @@ import {
   getModelForClass,
   modelOptions,
   prop,
+  Ref,
 } from '@typegoose/typegoose';
-import { createSHA256 } from '../../helpers/index.js';
+import { RentOfferEntity } from '../rent-offer/index.js';
 import { User, UserType } from '../../types/index.js';
+import { createSHA256 } from '../../helpers/index.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export interface UserEntity extends defaultClasses.Base {}
@@ -39,8 +41,6 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
 
   @prop({
     required: true,
-    minlength: [6, 'Min length of user password is 6'],
-    maxlength: [12, 'Max length of user password is 12'],
   })
   public password: string;
 
@@ -50,6 +50,9 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
     enum: UserType,
   })
   public type: UserType;
+
+  @prop({ required: true, ref: 'RentOfferEntity', default: [] })
+  public favoriteOffers!: Ref<RentOfferEntity>[];
 
   constructor(userData: User) {
     super();

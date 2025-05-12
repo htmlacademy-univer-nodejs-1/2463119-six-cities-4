@@ -1,9 +1,10 @@
 import { DocumentType, types } from '@typegoose/typegoose';
-import { inject, injectable } from 'inversify';
+import { UserService } from './user-service.interface.js';
+import { RentOfferEntity } from '../rent-offer/index.js';
+import { CreateUserDto } from './dto/create-user.dto.js';
 import { Logger } from '../../libs/logger/index.js';
 import { Component } from '../../types/index.js';
-import { CreateUserDto } from './dto/create-user.dto.js';
-import { UserService } from './user-service.interface.js';
+import { inject, injectable } from 'inversify';
 import { UserEntity } from './user.entity.js';
 
 @injectable()
@@ -48,5 +49,18 @@ export class DefaultUserService implements UserService {
     }
 
     return this.create(dto, salt);
+  }
+
+  public async findFavoriteOffers(
+    userId: string
+  ): Promise<DocumentType<RentOfferEntity>[]> {
+    const result = await this.userModel
+      .findById(userId)
+      .select('favorite')
+      .exec();
+    if (result === null) {
+      return [];
+    }
+    return this.userModel.find({ _id: { $in: result.favoriteOffers } });
   }
 }

@@ -1,7 +1,7 @@
+import { PackageJsonConfig } from '../types/package-json-config.js';
 import { Command } from './command.interface.js';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { PackageJsonConfig } from '../types/package-json-config.js';
 import chalk from 'chalk';
 
 export class VersionCommand implements Command {

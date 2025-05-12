@@ -1,9 +1,9 @@
+import { DefaultRentOfferService } from './default-rent-offer.service.js';
+import { RentOfferEntity, RentOfferModel } from './rent-offer.entity.js';
+import { RentOfferService } from './rent-offer-service.interface.js';
+import { Component } from '../../types/index.js';
 import { types } from '@typegoose/typegoose';
 import { Container } from 'inversify';
-import { Component } from '../../types/index.js';
-import { DefaultRentOfferService } from './default-rent-offer.service.js';
-import { RentOfferService } from './rent-offer-service.interface.js';
-import { RentOfferEntity, RentOfferModel } from './rent-offer.entity.js';
 
 export function createRentOfferContainer() {
   const userContainer = new Container();

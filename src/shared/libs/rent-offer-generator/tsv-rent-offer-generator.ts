@@ -4,9 +4,9 @@ import {
   getRandomItem,
   getRandomItems,
 } from '../../helpers/index.js';
+import { default as Constants } from './rent-offer-generator.constants.js';
 import { RentOfferGenerator } from './rent-offer-generator.interface.js';
 import { HousingType, MockServerData } from '../../types/index.js';
-import { default as Constants } from './rent-offer-generator.constants.js';
 
 export class TSVRentOfferGenerator implements RentOfferGenerator {
   constructor(private readonly mockData: MockServerData) {}
@@ -45,7 +45,6 @@ export class TSVRentOfferGenerator implements RentOfferGenerator {
     ).toString();
     const conveniences = getRandomItems(this.mockData.conveniences).join(';');
     const firstname = getRandomItem(this.mockData.firstnames);
-    const email = getRandomItem(this.mockData.emails);
     const avatarPath = getRandomItem(this.mockData.avatarPaths);
     const type = getRandomItem(this.mockData.types);
     const commentsCount = getRandomItem(this.mockData.commentsCount);
@@ -77,7 +76,6 @@ export class TSVRentOfferGenerator implements RentOfferGenerator {
       price,
       conveniences,
       firstname,
-      email,
       avatarPath,
       type,
       commentsCount,

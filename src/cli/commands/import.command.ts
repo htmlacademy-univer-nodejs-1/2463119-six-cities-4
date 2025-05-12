@@ -21,7 +21,7 @@ import {
 } from '../../shared/modules/user/index.js';
 import { UserService } from '../../shared/modules/user/user-service.interface.js';
 import { RentOffer } from '../../shared/types/index.js';
-import { DEFAULT_DB_PORT, DEFAULT_USER_PASSWORD } from './command.constant.js';
+import { default as Constants } from './command.constant.js';
 import { Command } from './command.interface.js';
 
 export class ImportCommand implements Command {
@@ -56,7 +56,7 @@ export class ImportCommand implements Command {
     dbname: string,
     salt: string
   ): Promise<void> {
-    const uri = getMongoURI(login, password, host, DEFAULT_DB_PORT, dbname);
+    const uri = getMongoURI(login, password, host, Constants.DEFAULT_DB_PORT, dbname);
     this.salt = salt;
 
     await this.databaseClient.connect(uri);
@@ -89,7 +89,7 @@ export class ImportCommand implements Command {
     const user = await this.userService.findOrCreate(
       {
         ...rentOffer.author,
-        password: DEFAULT_USER_PASSWORD,
+        password: Constants.DEFAULT_USER_PASSWORD,
       },
       this.salt
     );
@@ -103,14 +103,12 @@ export class ImportCommand implements Command {
       housingPhoto: rentOffer.housingPhoto,
       isPremium: rentOffer.isPremium,
       isFavorite: rentOffer.isFavorite,
-      rating: rentOffer.rating,
       housingType: rentOffer.housingType,
       roomsCount: rentOffer.roomsCount,
       guestsCount: rentOffer.guestsCount,
       price: rentOffer.price,
       conveniences: rentOffer.conveniences,
       authorId: user.id,
-      commentsCount: rentOffer.commentsCount,
       coordinates: rentOffer.coordinates,
     });
   }
